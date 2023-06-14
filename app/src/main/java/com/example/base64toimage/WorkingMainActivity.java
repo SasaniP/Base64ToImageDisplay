@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
-
+/*
 public class WorkingMainActivity {
     RecyclerView mRecyclerView;
     RecyclerView.LayoutManager mLayoutManager;
@@ -58,4 +58,4 @@ public class WorkingMainActivity {
 
         thread.start();
     }
-}
+}*/

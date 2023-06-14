@@ -43,6 +43,7 @@ class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
     public class ViewHolder extends RecyclerView.ViewHolder {
         public TextView mFullName;
         public ImageView mImageIcon;
+
         public ViewHolder(View itemView) {
             super(itemView);
             mFullName = itemView.findViewById(R.id.full_name);
