@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        imageView = findViewById(R.id.imageView);
+        //imageView = findViewById(R.id.imageView);
         mRecyclerView = findViewById(R.id.recycler_view);
         Text = findViewById(R.id.Text);
 
@@ -50,12 +50,16 @@ public class MainActivity extends AppCompatActivity {
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
-                try  {
+
+                try {
                     ArrayList<String> nameList = new ArrayList<>();
                     ArrayList<Bitmap> iconList = new ArrayList<>();
 
                     Document doc = Jsoup.connect(searchUrl).timeout(0).get();
+                    Elements names = doc.select("span.VuuXrf");
                     Elements images = doc.select("img.XNo5Ab");
+                    int count = names.size();
+                    int n_in_c = 0;
 
                     for (int i = 0; i < images.size(); i++) {
                         String base64String = images.get(i).absUrl("src");
@@ -63,15 +67,31 @@ public class MainActivity extends AppCompatActivity {
                         byte[] decodedString = Base64.decode(base64Image, Base64.DEFAULT);
                         Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
                         iconList.add(decodedByte);
-                        nameList.add(base64String);
+                        int j=i*2;
+                        String name = names.get(j).text();
+                        nameList.add(name);
+
+
+
+                        /*if (nameList.contains(name)){
+                            n_in_c++;
+                        }
+                        else{
+                        }*/
                         ArrayList<String> nameSet = new ArrayList<>(nameList);
                         ArrayList<Bitmap> iconSet = new ArrayList<>(iconList);
+                        int ncount = nameSet.size();
+                        int icount = iconSet.size();
 
-                        MainActivity.this.runOnUiThread(new Runnable(){
+                        //Text.setText("count = "+String.valueOf(count) + " counted = " + String.valueOf(n_in_c) + " ncount = "+ String.valueOf(ncount) + " icount = "+String.valueOf(icount) );
+
+
+
+                        MainActivity.this.runOnUiThread(new Runnable() {
                             @Override
-                            public void run(){
-                                mLayoutManager=new LinearLayoutManager(MainActivity.this);
-                                mAdapter=new MainAdapter(nameSet, iconSet);
+                            public void run() {
+                                mLayoutManager = new LinearLayoutManager(MainActivity.this);
+                                mAdapter = new MainAdapter(nameSet, iconSet);
                                 mRecyclerView.setLayoutManager(mLayoutManager);
                                 mRecyclerView.setAdapter(mAdapter);
                             }
@@ -80,7 +100,6 @@ public class MainActivity extends AppCompatActivity {
 
                 } catch (Exception e) {
                     e.printStackTrace();
-                    Text.setText("gfg");
                 }
             }
         });
