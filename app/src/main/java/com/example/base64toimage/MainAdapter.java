@@ -20,10 +20,13 @@ class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
 
     ArrayList<String> mContacts;
     ArrayList<Bitmap> mImages;
+    ArrayList<String> mLinks;
 
-    public MainAdapter(ArrayList<String> contacts, ArrayList<Bitmap> images) {
+
+    public MainAdapter(ArrayList<String> contacts, ArrayList<Bitmap> images, ArrayList<String> links) {
         mContacts = contacts;
         mImages = images;
+        mLinks = links;
     }
 
     @Override
@@ -35,6 +38,7 @@ class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
     public void onBindViewHolder(MainAdapter.ViewHolder holder, int position) {
         holder.mFullName.setText (mContacts.get(position));
         holder.mImageIcon.setImageBitmap (mImages.get(position));
+        holder.mLink.setText (mLinks.get(position));
     }
     @Override
     public int getItemCount() {
@@ -43,11 +47,13 @@ class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
     public class ViewHolder extends RecyclerView.ViewHolder {
         public TextView mFullName;
         public ImageView mImageIcon;
+        public TextView mLink;
 
         public ViewHolder(View itemView) {
             super(itemView);
             mFullName = itemView.findViewById(R.id.full_name);
             mImageIcon = itemView.findViewById(R.id.image_icon);
+            mLink = itemView.findViewById(R.id.link_text);
         }
     }
 }
